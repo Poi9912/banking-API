@@ -4,4 +4,4 @@ config = require('./config.json')
 
 const sql = postgres('postgres://username:password@host:port/database',config)
 
-export default sql
+module.exports = sql
