@@ -20,10 +20,6 @@ const logger = (req, res, next) => {
 finance.use(logger)
 finance.use(express.json())
 
-finance.get('/', (req, res) => {
-    res.send('Finance')
-})
-
 //query
 finance.get('/services', async (req, res) => {
     let age = req.query.age
