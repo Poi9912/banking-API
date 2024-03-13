@@ -6,11 +6,11 @@ const pgp = require('pg-promise')({
         console.log('Disconnecting from database')
     }
 })
-const config = require('./config.json')
+const config = require('./config')
 console.log('creating pg client')
 console.log('creating pg client connection')
-const cn='postgres://postgres:Manager1@localhost:5432/postgres'
-const db = pgp(cn)
+
+const db = pgp(config.connectionString)
 
 module.exports = {
     db
