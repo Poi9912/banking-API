@@ -9,4 +9,8 @@ const finance = require('./routers/finance')
 app.use('/customer',customer)
 app.use('/finance',finance)
 
+app.get('/', (req, res) => {
+    res.send('API')
+})
+
 app.listen(process.env.PORT)
