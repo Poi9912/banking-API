@@ -7,8 +7,8 @@ const fs = require('fs')
 const port = process.env.PORT || 3000
 
 const credentials = {
-    key: fs.readFileSync(__dirname + '/ssl/localhost-key.pem'),
-    cert: fs.readFileSync(__dirname + '/ssl/localhost.pem')
+    key: fs.readFileSync(__dirname + '/ssl/localhost.key'),
+    cert: fs.readFileSync(__dirname + '/ssl/localhost.crt')
 }
 
 //routers for the 2 different clients
