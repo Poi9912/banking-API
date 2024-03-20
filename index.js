@@ -34,7 +34,7 @@ app.get(
     '/docs',
     redoc({
         title: 'API Docs',
-        specUrl: 'swagger.json',
+        specUrl: 'docs/swagger.json',
         nonce: '', // <= it is optional,we can omit this key and value
         // we are now start supporting the redocOptions object
         // you can omit the options object if you don't need it
