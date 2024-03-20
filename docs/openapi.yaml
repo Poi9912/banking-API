@@ -109,6 +109,31 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/newCustomer'
+  /login:
+    post:
+      tags:
+        - Customer
+      summary: logginAsCustomer
+      requestBody:
+        description: Data to login into customers service
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/loginTry'
+      responses:
+        '200':
+          description: 'Success'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/loginOk'
+        '401':
+          description: 'Unauthorized'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/loginErr'
 components:
   schemas:
     servicesInfo:
@@ -256,3 +281,34 @@ components:
         data:
           type: object
           $ref: '#/components/schemas/newCustomer'
+    loginTry:
+      type: object
+      properties:
+        phone:
+          type: integer
+          format: int64
+          example: 3009875022
+        password:
+          type: string
+          example: "P4ssW04Dt3ST"
+    loginOk:
+      type: object
+      properties:
+        status: 
+          type: integer
+          example: 200
+        loggin:
+          type: boolean
+          example: true
+        jwt:
+          type: string
+          example: "thisisaJWTtokenforlogginintocustomers"
+    loginErr:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 401
+        message:
+          type: string
+          example: "Incorrect credentials"
