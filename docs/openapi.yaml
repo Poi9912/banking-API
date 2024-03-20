@@ -1,0 +1,258 @@
+openapi: '3.0.1'
+info:
+  title: Banking API STACK
+  version: '1.0.0'
+  description: >-
+    This stack interfaces with the customer and finance data for the banking application
+
+    ### The stack has the next 2 APIs:
+
+    * Finance API: Provides service mainly for the finance web portal
+
+    * Customer API: Only provides service for the customer web portal and login
+servers:
+  - url: https://api.jeuzportfolio.net/banking/v1
+paths:
+  /finance/services:
+    get:
+      tags:
+        - Finance
+      summary: getServices
+      parameters:
+        - in: path
+          name: serviceId
+          required: false
+          description: Numeric ID of the service to get
+        - in: query
+          name: age
+          schema:
+            type: integer
+            description: Filter results by age smaller or equal than query
+        - in: query
+          name: salary
+          schema:
+            type: integer
+            format: int64
+            description: Filter results by salary smaller or equal than query
+        - in: query
+          name: country
+          schema:
+            type: string
+            description: Filter results by country equal than query
+      description: >-
+        Provides the list of services for the banking application
+      responses:
+        '200':
+          description: 'Success'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/listServicesInfo'
+    post:
+      tags:
+          - Finance
+      summary: newServices
+      requestBody:
+        description: Data of the new service to create
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/newServices'
+      responses:
+        '200':
+          description: 'Success'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/newServicesSuccess'
+  /customer/customers:
+    get:
+      tags:
+        - Customer
+      summary: getCustomers
+      parameters:
+        - in: path
+          name: customerId
+          required: false
+          schema:
+            type: integer
+          description: The customerId
+        - in: query
+          name: code
+          schema:
+            type: integer
+            format: int64
+          description: Filter results by customerCode
+      responses:
+        '200':
+          description: 'Success'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/listCustomersInfo'
+    post:
+      tags:
+        - Customer
+      summary: newCustomers
+      requestBody:
+        description: Data of the new customer to register
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/newCustomerSuccess'
+      responses:
+        '200':
+          description: 'Success'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/newCustomer'
+components:
+  schemas:
+    servicesInfo:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        code:
+          type: integer
+          example: 1
+        service_description:
+          type: string
+          example: "CUENTA DE AHORROS"
+        req_age:
+          type: integer
+          example: 18
+        req_salary:
+          type: integer
+          format: int64
+          example: 1500000
+        req_city:
+          type: string
+          example: "BOGOTA DC"
+        req_country:
+          type: string
+          example: "COLOMBIA"
+    listServicesInfo:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 200
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/servicesInfo'
+    newServices:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 15
+        service_description:
+          type: string
+          example: "FONDO DE INVERSION MIXTO"
+        req_age:
+          type: integer
+          example: 25
+        req_salary:
+          type: integer
+          format: int64
+          example: 4000000
+        req_city:
+          type: string
+          example: null
+        req_country:
+          type: string
+          example: "COLOMBIA"
+    newServicesSuccess:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 200
+        data:
+          type: object
+          $ref: '#/components/schemas/newServices'
+    customersInfo:
+      type: object
+      properties:
+        id: 
+          type: integer
+          example: 7
+        code:
+          type: integer
+          format: int64
+          example: 1111344556
+        full_name:
+          type: string
+          example: "JUAN PEPITO PEREZ RIAVAS"
+        city:
+          type: string
+          example: "MEDELLIN"
+        country:
+          type: string
+          example: "COLOMBIA"
+        age:
+          type: integer
+          example: 32
+        salary:
+          type: integer
+          format: int64
+          example: 4560000
+        phone:
+          type: integer
+          format: int64
+          example: 3002304567
+    listCustomersInfo:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 200
+        data: 
+          type: array
+          items:
+            $ref: '#/components/schemas/customersInfo'
+    newCustomer:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int64
+          example: 1111344556
+        full_name:
+          type: string
+          example: "JUANA MARIA ROMERO DIAZ"
+        password:
+          type: string
+          example: "Pas5W0rD"
+        city:
+          type: string
+          example: "BOGOTA"
+        country:
+          type: string
+          example: "COLOMBIA"
+        age:
+          type: integer
+          example: 42
+        salary:
+          type: integer
+          format: int64
+          example: 4880000
+        phone:
+          type: integer
+          format: int64
+          example: 3112304567
+    newCustomerSuccess:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 200
+        data:
+          type: object
+          $ref: '#/components/schemas/newCustomer'
