@@ -109,7 +109,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/newCustomer'
-  /login:
+  /customer/login:
     post:
       tags:
         - Customer

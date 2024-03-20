@@ -163,7 +163,7 @@
           }
         }
       },
-      "/login": {
+      "/customer/login": {
         "post": {
           "tags": [
             "Customer"
